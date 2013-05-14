@@ -50,6 +50,16 @@ public class Position {
         this.row = row;
     }
     
+    public double distance(Position position){
+        int x1 = this.getCol()*this.getCol();
+        int x2 = position.getCol()*position.getCol();
+        int y1 = this.getRow()*this.getRow();
+        int y2 = position.getRow()*position.getRow();
+        double x = Math.sqrt(x2-x1);
+        double y = Math.sqrt(y2-y1);
+        return x*x + y*y;
+    }
+    
     
     
     

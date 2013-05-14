@@ -6,4 +6,16 @@ package horsequeen.gamelogic;
  */
 public class Game {
     
+    private GameStatus actualStatus;
+
+    public Game() {
+    }
+    
+    public void move(Movement movement){
+        actualStatus.move(movement);
+    }
+    
+    
+    
+    
 }
