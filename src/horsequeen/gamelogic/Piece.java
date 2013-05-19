@@ -9,7 +9,7 @@ import horsequeen.util.Position;
  *
  * @author josue
  */
-public class Piece {
+public abstract class Piece {
     
     protected int color;
     protected Position position;
@@ -29,6 +29,8 @@ public class Piece {
     public void setPosition(Position position) {
         this.position = position;
     }
+    
+    public abstract int getStack();
     
     
     

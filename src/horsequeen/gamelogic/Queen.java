@@ -20,6 +20,7 @@ public class Queen extends Piece {
         stack=STACK;
     }
 
+    @Override
     public int getStack() {
         return stack;
     }

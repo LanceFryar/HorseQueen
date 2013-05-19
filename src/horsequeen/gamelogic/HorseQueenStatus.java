@@ -1,16 +1,14 @@
 package horsequeen.gamelogic;
-import com.sun.org.apache.xerces.internal.xs.LSInputList;
 import horsequeen.util.Position;
 import java.util.LinkedList;
 import java.util.List;
-import javax.sound.sampled.Line;
 /**
  * Esta clase representa un estado de juego.
  * @author josue
  * 
  * 
  */
-public class GameStatus {
+public class HorseQueenStatus implements Cloneable{
     
     public static final int ROWS = 8;
     public static final int COLS = 8;
@@ -24,7 +22,7 @@ public class GameStatus {
     private Queen whiteQueen;
     private Queen blackQueen;
 
-    public GameStatus() {
+    public HorseQueenStatus() {
         board = new Board(COLS, ROWS);
         
         whiteQueen = new Queen(WHITE);
@@ -36,6 +34,10 @@ public class GameStatus {
         board.setPieceAt(blackQueen.getPosition(), blackQueen);
         
         actualPlayer=WHITE;
+    }
+
+    public int getActualPlayer() {
+        return actualPlayer;
     }
     
     /**
@@ -54,9 +56,6 @@ public class GameStatus {
         }
 
         actualPlayer = 1 - actualPlayer;
-        
-        
-
 
     }
     
@@ -64,7 +63,8 @@ public class GameStatus {
      * Devuelve un valor numerico que representa quien ha ganado
      * @return 
      */
-    public int getUtility(){
+    
+    public double getUtility(){
         // -1 si no ha ganado nadie, 0 si ha ganado WHITE o 1 si ha ganado BLACK
         if (whiteQueen==null 
                 || getPosibleMovementsFor(whiteQueen.getPosition())==null) 
@@ -73,6 +73,11 @@ public class GameStatus {
                 || getPosibleMovementsFor(blackQueen.getPosition())==null) 
             return 0;
         return -1;
+    }
+    
+    public boolean isTerminal(){
+        if (whiteQueen==null || blackQueen==null) return true;
+        else return false;
     }
     
     /**
@@ -197,10 +202,6 @@ public class GameStatus {
      * Determina si un estado es terminal o no.
      * @return 
      */
-    public boolean isTerminal(){
-        if (whiteQueen==null || blackQueen==null) return true;
-        else return false;
-    }
 
     private boolean isNearer(Movement movement) {
         if (actualPlayer==BLACK)
@@ -218,22 +219,36 @@ public class GameStatus {
                 && board.getPieceAt(movement.getSource()).getColor()== actualPlayer;
     }
     
-    public void showState(){
+    /*public void showState(){
         for (int i=0; i<COLS; i++){
-            for (int j=0; j<ROWS; j++){
+            System.out.print(" " + i + " ");
+        }
+        System.out.println();
+        for (int i=0; i<ROWS; i++){
+            for (int j=0; j<COLS; j++){
                Position position = new Position(i, j);
                if (board.getPieceAt(position) instanceof Baby){
-                   System.out.print("B");
+                   System.out.print("[B]");
                }
                if (board.getPieceAt(position) instanceof Queen){
                    System.out.print("Q");
+                   if (board.getPieceAt(position).getColor()==BLACK)
+                       System.out.print("B" + blackQueen.getStack());
+                   else
+                       System.out.print("W" + whiteQueen.getStack());
                }
                if (board.getPieceAt(position)== null){
-                   System.out.print("-");
+                   System.out.print("[ ]");
                }
             }
+            System.out.print(i);
             System.out.println();
         }
+    }*/
+    
+    @Override
+    public HorseQueenStatus clone(){
+        return new HorseQueenStatus();
     }
     
 }

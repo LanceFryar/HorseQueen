@@ -13,6 +13,12 @@ public class Baby extends Piece{
     public Baby(int color) {
         super(color);
     }
+
+    @Override
+    public int getStack() {
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
