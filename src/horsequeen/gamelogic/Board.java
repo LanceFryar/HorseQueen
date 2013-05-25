@@ -9,7 +9,7 @@ import horsequeen.util.Position;
  * Esta clase representa el tablero de juego
  * @author josue
  */
-public class Board {
+public class Board implements Cloneable{
     
     private Cell cells[][];
 
@@ -42,7 +42,17 @@ public class Board {
         cells[position.getCol()][position.getRow()].setPiece(piece);
     }
     
-    
+    @Override
+    public Board clone(){
+        Board board = new Board(HorseQueenStatus.ROWS, HorseQueenStatus.COLS);
+        board.cells = new Cell[cells.length][cells[0].length];
+        for (int i=0; i<cells.length; i++){
+            for (int j=0; j<cells[i].length; j++){
+                board.cells[i][j] = this.cells[i][j].clone();
+            }
+        }
+        return board;
+    }
     
     
 }

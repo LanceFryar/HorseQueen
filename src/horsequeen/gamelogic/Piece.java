@@ -9,7 +9,7 @@ import horsequeen.util.Position;
  *
  * @author josue
  */
-public abstract class Piece {
+public abstract class Piece implements Cloneable{
     
     protected int color;
     protected Position position;
@@ -31,6 +31,9 @@ public abstract class Piece {
     }
     
     public abstract int getStack();
+    
+    @Override
+    public abstract Piece clone();
     
     
     

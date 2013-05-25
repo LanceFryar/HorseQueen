@@ -35,6 +35,10 @@ public class HorseQueenStatus implements Cloneable{
         
         actualPlayer=WHITE;
     }
+    
+    private HorseQueenStatus(Board board){
+        this.board=board;
+    }
 
     public int getActualPlayer() {
         return actualPlayer;
@@ -65,7 +69,6 @@ public class HorseQueenStatus implements Cloneable{
      */
     
     public double getUtility(){
-        // -1 si no ha ganado nadie, 0 si ha ganado WHITE o 1 si ha ganado BLACK
         if (whiteQueen==null 
                 || getPosibleMovementsFor(whiteQueen.getPosition())==null) 
             return 1;
@@ -136,6 +139,14 @@ public class HorseQueenStatus implements Cloneable{
      * @param movement 
      */
     private void babyConquestMove(Movement movement) {
+        if (board.getPieceAt(movement.getDestination())==whiteQueen){
+            whiteQueen=null;
+        }
+        else if (board.getPieceAt(movement.getDestination())==blackQueen){
+            blackQueen=null;
+        }
+        
+        
         board.setPieceAt(movement.getDestination(), 
                         board.getPieceAt(movement.getSource()));
         board.setPieceAt(movement.getSource(), null);
@@ -213,13 +224,23 @@ public class HorseQueenStatus implements Cloneable{
     }
 
     private boolean isCorrectMovement(Movement movement) {
+        
+        boolean nearer = true;
+        
+        if (board.getPieceAt(movement.getSource()) instanceof Baby){
+            nearer = isNearer(movement);
+        }
+       
         return inBoardMove(movement) 
                 && isLMovement(movement)
                 && board.getPieceAt(movement.getSource())!= null
-                && board.getPieceAt(movement.getSource()).getColor()== actualPlayer;
+                && board.getPieceAt(movement.getSource()).getColor()== actualPlayer
+                && nearer
+                && (board.getPieceAt(movement.getDestination())==null
+                ||board.getPieceAt(movement.getDestination()).getColor()!= actualPlayer);
     }
     
-    /*public void showState(){
+    public void showState(){
         for (int i=0; i<COLS; i++){
             System.out.print(" " + i + " ");
         }
@@ -228,7 +249,11 @@ public class HorseQueenStatus implements Cloneable{
             for (int j=0; j<COLS; j++){
                Position position = new Position(i, j);
                if (board.getPieceAt(position) instanceof Baby){
-                   System.out.print("[B]");
+                   System.out.print("[B");
+                   if (board.getPieceAt(position).getColor()==BLACK)
+                       System.out.print("B]");
+                   else
+                       System.out.print("W]");
                }
                if (board.getPieceAt(position) instanceof Queen){
                    System.out.print("Q");
@@ -244,11 +269,15 @@ public class HorseQueenStatus implements Cloneable{
             System.out.print(i);
             System.out.println();
         }
-    }*/
+    }
     
     @Override
     public HorseQueenStatus clone(){
-        return new HorseQueenStatus();
+        HorseQueenStatus horseQueenStatus = new HorseQueenStatus(board.clone());
+        horseQueenStatus.whiteQueen=whiteQueen.clone();
+        horseQueenStatus.blackQueen=blackQueen.clone();
+        horseQueenStatus.actualPlayer=actualPlayer;
+        return horseQueenStatus;
     }
     
 }

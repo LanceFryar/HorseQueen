@@ -1,28 +1,18 @@
 package horsequeen;
 
-import horsequeen.iu.OPanel;
-import horsequeen.iu.Tablero;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JApplet;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import horsequeen.gamelogic.HorseQueenGame;
+import horsequeen.gamelogic.HorseQueenStatus;
+import horsequeen.gamelogic.Movement;
+import horsequeen.ia.AlphaBetaSearch;
+import horsequeen.ia.MinimaxSearch;
 
 /**
  *
  * @author josue
  */
-public class Main extends JFrame{
+public class Main /*extends JFrame*/{
     
-    private Tablero tablero;
+    /*private Tablero tablero;
     private OPanel opciones;
     
     public Main() {
@@ -42,12 +32,26 @@ public class Main extends JFrame{
         
     }
     
+    @Override
     public void paint(Graphics g){
         super.paint(g);
-    }
+    }*/
     
     public static void main (String []args){
-        new Main();
+        HorseQueenGame game = new HorseQueenGame();
+        AlphaBetaSearch<HorseQueenStatus, Movement,Integer> search = new AlphaBetaSearch(game);
+        game.getActualStatus().showState();
+        
+        while(!game.isTerminal(game.getActualStatus())){
+            Movement move = search.makeDecision(game.getActualStatus().clone());
+            /*System.out.println("From: " + move.getSource().getRow() + 
+                    "," + move.getSource().getCol());
+            System.out.println("To: " + move.getDestination().getRow() + 
+                    "," + move.getDestination().getCol());*/
+            game.move(move);
+            game.getActualStatus().showState();
+        }
+        
     }
       
 }

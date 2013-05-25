@@ -8,7 +8,7 @@ package horsequeen.gamelogic;
  * Esta clase representa una celda del tablero
  * @author josue
  */
-public class Cell {
+public class Cell implements Cloneable{
     
     private Piece piece;
     
@@ -31,6 +31,13 @@ public class Cell {
         this.piece = piece;
     }
 
+    @Override
+    public Cell clone(){
+        Cell cell = new Cell();
+        if (piece!=null)
+            cell.setPiece(this.getPiece().clone());
+        return cell;
+    }
     
     
 }

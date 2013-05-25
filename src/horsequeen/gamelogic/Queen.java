@@ -19,6 +19,11 @@ public class Queen extends Piece {
         super(color);
         stack=STACK;
     }
+    
+    private Queen (int color, int stack){
+        super(color);
+        this.stack=stack;
+    }
 
     @Override
     public int getStack() {
@@ -32,5 +37,12 @@ public class Queen extends Piece {
         stack--;
     }
     
+    
+    @Override
+    public Queen clone(){
+        Queen queen = new Queen(color, stack);
+        queen.position = this.position.clone();
+        return queen;
+    }
     
 }

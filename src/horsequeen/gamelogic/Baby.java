@@ -20,6 +20,13 @@ public class Baby extends Piece{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public Baby clone(){
+        Baby baby = new Baby(color);
+        baby.position=this.position.clone();
+        return baby;
+    }
+    
     
     
 }
