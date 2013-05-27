@@ -4,7 +4,9 @@ import horsequeen.gamelogic.HorseQueenGame;
 import horsequeen.gamelogic.HorseQueenStatus;
 import horsequeen.gamelogic.Movement;
 import horsequeen.ia.AlphaBetaSearch;
-import horsequeen.ia.MinimaxSearch;
+import horsequeen.ia.PositioningHeuristic;
+import horsequeen.ia.QueenStackHeuristic;
+import java.io.IOException;
 
 /**
  *
@@ -37,19 +39,25 @@ public class Main /*extends JFrame*/{
         super.paint(g);
     }*/
     
-    public static void main (String []args){
+    public static void main (String []args) throws IOException{
         HorseQueenGame game = new HorseQueenGame();
+        game.setBlackPlayerHeuristic(new PositioningHeuristic());
+        game.setWhitePlayerHeuristic(new QueenStackHeuristic());
         AlphaBetaSearch<HorseQueenStatus, Movement,Integer> search = new AlphaBetaSearch(game);
         game.getActualStatus().showState();
         
         while(!game.isTerminal(game.getActualStatus())){
+
             Movement move = search.makeDecision(game.getActualStatus().clone());
-            /*System.out.println("From: " + move.getSource().getRow() + 
-                    "," + move.getSource().getCol());
-            System.out.println("To: " + move.getDestination().getRow() + 
-                    "," + move.getDestination().getCol());*/
+            System.out.println();
+            System.out.println("(" + move.getSource().getRow() 
+                   + ", "+ move.getSource().getCol() + ") a " 
+                    + "(" + move.getDestination().getRow() + ", "
+                    + move.getDestination().getCol() + ")");
+            System.out.println();
             game.move(move);
             game.getActualStatus().showState();
+            System.in.read();
         }
         
     }

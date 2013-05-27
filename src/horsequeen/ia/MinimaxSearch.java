@@ -44,6 +44,8 @@ package horsequeen.ia;
 public class MinimaxSearch<STATE, ACTION, PLAYER> implements
 		AdversarialSearch<STATE, ACTION> {
 
+    
+        public static final int P = 4;
 	private Game<STATE, ACTION, PLAYER> game;
 	private int expandedNodes;
 
@@ -77,7 +79,7 @@ public class MinimaxSearch<STATE, ACTION, PLAYER> implements
 															// value
 		expandedNodes++;
                 p++;
-		if (game.isTerminal(state) || p>2)
+		if (game.isTerminal(state) || p>P)
 			return game.getUtility(state, player);
 		double value = Double.NEGATIVE_INFINITY;
 		for (ACTION action : game.getActions(state))
@@ -90,7 +92,7 @@ public class MinimaxSearch<STATE, ACTION, PLAYER> implements
 															// value
 		expandedNodes++;
                 p++;
-		if (game.isTerminal(state) || p>2)
+		if (game.isTerminal(state) || p>P)
 			return game.getUtility(state, player);
 		double value = Double.POSITIVE_INFINITY;
 		for (ACTION action : game.getActions(state))
