@@ -2,67 +2,25 @@ package horsequeen.ia;
 
 import horsequeen.ia.Metrics;
 
-/**
- * Artificial Intelligence A Modern Approach (3rd Ed.): Page 173.<br>
- *
- * <pre>
- * <code>
- * function ALPHA-BETA-SEARCH(state) returns an action
- *   v = MAX-VALUE(state, -infinity, +infinity)
- *   return the action in ACTIONS(state) with value v
- *
- * function MAX-VALUE(state, alpha, beta) returns a utility value
- *   if TERMINAL-TEST(state) then return UTILITY(state)
- *   v = -infinity
- *   for each a in ACTIONS(state) do
- *     v = MAX(v, MIN-VALUE(RESULT(s, a), alpha, beta))
- *     if v >= beta then return v
- *     alpha = MAX(alpha, v)
- *   return v
- *
- * function MIN-VALUE(state, alpha, beta) returns a utility value
- *   if TERMINAL-TEST(state) then return UTILITY(state)
- *   v = infinity
- *   for each a in ACTIONS(state) do
- *     v = MIN(v, MAX-VALUE(RESULT(s,a), alpha, beta))
- *     if v <= alpha then return v
- *     beta = MIN(beta, v)
- *   return v
- * </code> </pre>
- *
- * Figure 5.7 The alpha-beta search algorithm. Notice that these routines are
- * the same as the MINIMAX functions in Figure 5.3, except for the two lines in
- * each of MIN-VALUE and MAX-VALUE that maintain alpha and beta (and the
- * bookkeeping to pass these parameters along).
- *
- * @author Ruediger Lunde
- *
- * @param <STATE> Type which is used for states in the game.
- * @param <ACTION> Type which is used for actions in the game.
- * @param <PLAYER> Type which is used for players in the game.
- */
+
 public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         AdversarialSearch<STATE, ACTION> {
 
    
     Game<STATE, ACTION, PLAYER> game;
     private int expandedNodes;
-
-    /**
-     * Creates a new search object for a given game.
-     */
-    public static <STATE, ACTION, PLAYER> AlphaBetaSearch<STATE, ACTION, PLAYER> createFor(
-            Game<STATE, ACTION, PLAYER> game) {
-        return new AlphaBetaSearch<STATE, ACTION, PLAYER>(game);
-    }
+    private double time;
+    private int movements;
 
     public AlphaBetaSearch(Game<STATE, ACTION, PLAYER> game) {
         this.game = game;
+        movements=0;
     }
 
     @Override
     public ACTION makeDecision(STATE state) {
         expandedNodes = 0;
+        time=System.currentTimeMillis();
         ACTION result = null;
         double resultValue = Double.NEGATIVE_INFINITY;
         PLAYER player = game.getPlayer(state);
@@ -74,6 +32,8 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
                 resultValue = value;
             }
         }
+        movements++;
+        time = System.currentTimeMillis()-time;
         return result;
     }
 
@@ -117,6 +77,8 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
     public Metrics getMetrics() {
         Metrics result = new Metrics();
         result.set("expandedNodes", expandedNodes);
+        result.set("time",time);
+        result.set("movements", movements);
         return result;
     }
 }

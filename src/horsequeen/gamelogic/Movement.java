@@ -21,10 +21,18 @@ public class Movement {
         this.destination = destination;
     }
 
+    /**
+     * Obtiene la posicion fuente
+     * @return 
+     */
     public Position getSource() {
         return source;
     }
 
+    /**
+     * Obtiene la posicion destino
+     * @return 
+     */
     public Position getDestination() {
         return destination;
     }

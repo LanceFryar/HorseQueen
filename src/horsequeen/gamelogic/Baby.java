@@ -1,23 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package horsequeen.gamelogic;
 
 /**
  *
+ * Esta clase representa un Baby o Monkey
  * @author josue
  */
 public class Baby extends Piece{
 
+    /**
+     * Constructor de la clase
+     * @param color color de la Pieza
+     */
     public Baby(int color) {
         super(color);
     }
 
+    /**
+     * Debido a que la clase abstracta Piece contiene el metodo getStack,
+     * el Baby tambien lo tiene, devolviendo su stack que es 1.
+     * @return numero de fichas apiladas
+     */
     @Override
     public int getStack() {
         return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override

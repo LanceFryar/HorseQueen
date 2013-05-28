@@ -18,26 +18,48 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
         actualStatus =  new HorseQueenStatus();
     }
 
+    /**
+     * Obtiene la heuristica que usara el jugaro blanco
+     * @return  
+     */
     public Heuristic getWhitePlayerHeuristic() {
         return whitePlayerHeuristic;
     }
+    
+    /**
+     * Establece la heuristica que usarara el jugador blanco
+     * @param whitePlayerHeuristic 
+     */
 
     public void setWhitePlayerHeuristic(Heuristic whitePlayerHeuristic) {
         this.whitePlayerHeuristic = whitePlayerHeuristic;
     }
 
+    /**
+     * Obtiene la heuristica que usara el jugaro negro
+     * @return  
+     */
     public Heuristic getBlackPlayerHeuristic() {
         return blackPlayerHeuristic;
     }
 
+    /**
+     * Establece la heuristica que usarara el jugador negro
+     * @param whitePlayerHeuristic 
+     */
     public void setBlackPlayerHeuristic(Heuristic blackPlayerHeuristic) {
         this.blackPlayerHeuristic = blackPlayerHeuristic;
     }
     
+    /**
+     * Obtiene el estado actual del juego
+     * @return 
+     */
     public HorseQueenStatus getActualStatus(){
         return actualStatus;
     }
 
+    
     @Override
     public HorseQueenStatus getInitialState() {
         return new HorseQueenStatus();
@@ -84,6 +106,10 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
         }
     }
 
+    /**
+     * Realiza el moviemiento pasado como parametro en el estado actual
+     * @param movement 
+     */
     public void move(Movement movement){
         actualStatus.move(movement);
     }
