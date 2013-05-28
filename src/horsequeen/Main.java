@@ -7,15 +7,22 @@ import horsequeen.ia.AlphaBetaSearch;
 import horsequeen.gamelogic.PositioningHeuristic;
 import horsequeen.gamelogic.PossibleMovementsHeuristic;
 import horsequeen.gamelogic.QueenStackHeuristic;
+import horsequeen.iu.OPanel;
+import horsequeen.iu.Tablero;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  *
  * @author josue
  */
-public class Main /*extends JFrame*/{
+public class Main extends JFrame{
     
-    /*private Tablero tablero;
+    private Tablero tablero;
     private OPanel opciones;
     
     public Main() {
@@ -38,28 +45,10 @@ public class Main /*extends JFrame*/{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-    }*/
+    }
     
-    public static void main (String []args) throws IOException{
-        HorseQueenGame game = new HorseQueenGame();
-        game.setBlackPlayerHeuristic(new QueenStackHeuristic());
-        game.setWhitePlayerHeuristic(new PossibleMovementsHeuristic());
-        AlphaBetaSearch<HorseQueenStatus, Movement,Integer> search = new AlphaBetaSearch(game);
-        game.getActualStatus().showState();
-        
-        while(!game.isTerminal(game.getActualStatus())){
-
-            Movement move = search.makeDecision(game.getActualStatus().clone());
-            System.out.println();
-            System.out.println("(" + move.getSource().getRow() 
-                   + ", "+ move.getSource().getCol() + ") a " 
-                    + "(" + move.getDestination().getRow() + ", "
-                    + move.getDestination().getCol() + ")");
-            System.out.println();
-            game.move(move);
-            game.getActualStatus().showState();
-            System.in.read();
-        }
+    public static void main (String []args){
+        Main main = new Main();
         
     }
       
