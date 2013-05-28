@@ -1,18 +1,23 @@
 package horsequeen.ia;
 
-
+/**
+ * Variant of the search interface. Since players can only control the next
+ * move, method
+ * <code>makeDecision</code> returns only one action, not a sequence of actions.
+ *
+ * @author Ruediger Lunde
+ */
 public interface AdversarialSearch<STATE, ACTION> {
 
     public static final int P = 6;
 
     /**
-     * Devuelve la accion que estima como mejor dado el estado pasado por 
-     * parametro
+     * Returns the action which appears to be the best at the given state.
      */
     ACTION makeDecision(STATE state);
 
     /**
-     * Devuelve las metricas de la busqueda
+     * Returns all the metrics of the search.
      *
      * @return all the metrics of the search.
      */

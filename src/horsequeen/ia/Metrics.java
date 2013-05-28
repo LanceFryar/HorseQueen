@@ -3,7 +3,11 @@ package horsequeen.ia;
 import java.util.Hashtable;
 import java.util.Set;
 
-
+/**
+ * Stores key-value pairs for efficiency analysis.
+ * @author Ravi Mohan
+ * @author Ruediger Lunde
+ */
 public class Metrics {
 	private Hashtable<String, String> hash;
 

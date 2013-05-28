@@ -8,7 +8,7 @@ import static horsequeen.gamelogic.HorseQueenStatus.WHITE;
 import horsequeen.ia.Heuristic;
 
 /**
- * Heuristica que valora el numero posible de movimientos del jugador
+ *
  * @author josue
  */
 public class PossibleMovementsHeuristic implements Heuristic{

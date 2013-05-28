@@ -73,13 +73,16 @@ public class HorseQueenStatus implements Cloneable {
 
     }
 
-    
     /**
-     * Evalua si el estado es terminal (una reina ha sido comida o solo le queda
-     * una ficha en el stack o un jugador no tiene movimientos posibles
-     * @return verdadero si es terminal, falso en caso contrario
+     * Devuelve un valor numerico que representa quien ha ganado
+     *
+     * @return
      */
-    
+    public double getUtility() {
+        return 0;
+
+    }
+
     public boolean isTerminal() {
         if (whiteQueen == null
                 || blackQueen == null
@@ -94,10 +97,6 @@ public class HorseQueenStatus implements Cloneable {
         }
     }
 
-    /**
-     * Necesario para que la heuristica pueda acceder al tablero
-     * @return el tablero del estado actual del juego
-     */
     public Board getBoard() {
         return board;
     }
@@ -105,7 +104,7 @@ public class HorseQueenStatus implements Cloneable {
     /**
      * Devuelve todos los posibles movimientos a partir de un estado.
      *
-     * @return lista de todos los posibles movimientos
+     * @return
      */
     public List<Movement> getPosibleMovements() {
         List posibleMovements = new LinkedList();
@@ -122,12 +121,6 @@ public class HorseQueenStatus implements Cloneable {
         return posibleMovements;
     }
 
-    /**
-     * Devulvel los posibles movimientos para una pieza localizada en un lugar
-     * dado
-     * @param position posicion de la pieza
-     * @return lista de posibles movimientos
-     */
     public List<Movement> getPosibleMovementsFor(Position position) {
         List<Movement> posibleMovements = new LinkedList();
         Movement movement;
@@ -140,10 +133,6 @@ public class HorseQueenStatus implements Cloneable {
         return posibleMovements;
     }
 
-    /**
-     * Realiza el moviemendo de un Baby, si es posible y legal
-     * @param movement movimient deseado
-     */
     private void babyMovement(Movement movement) {
         if (board.getPieceAt(movement.getDestination()) == null) {
             babyPositioningMove(movement);
@@ -155,7 +144,7 @@ public class HorseQueenStatus implements Cloneable {
     /**
      * Movimiento de posicionamiento de un baby
      *
-     * @param movement movimiemto deseado
+     * @param movement
      */
     private void babyPositioningMove(Movement movement) {
         // Comprobar si el destino es valido y mover si es posible
@@ -170,7 +159,7 @@ public class HorseQueenStatus implements Cloneable {
     /**
      * Movimiento de conquista de un baby
      *
-     * @param movement movimiento deseado
+     * @param movement
      */
     private void babyConquestMove(Movement movement) {
         if (board.getPieceAt(movement.getDestination()) == whiteQueen) {
@@ -188,7 +177,7 @@ public class HorseQueenStatus implements Cloneable {
     /**
      * Moviemiento de una reina.
      *
-     * @param movement movimiento deseado
+     * @param movement
      */
     private void queenMovement(Movement movement) {
         // Movimiento de posicionamiento -> reduce el stack y deja un baby
@@ -244,10 +233,14 @@ public class HorseQueenStatus implements Cloneable {
     }
 
     /**
-     * Determina si un Baby esta mas cerca de la reina enemiga
-     * @param movement movimiento deseado
-     * @return verdadero si esta mas cerca de la reina enemiga, falso en caso
-     * contrario
+     * Movimiento de un baby.
+     *
+     * @param movement
+     */
+    /**
+     * Determina si un estado es terminal o no.
+     *
+     * @return
      */
     private boolean isNearer(Movement movement) {
         if (actualPlayer == BLACK) {
@@ -259,12 +252,6 @@ public class HorseQueenStatus implements Cloneable {
         }
     }
 
-    /**
-     * 
-     * Determina si un movimiento es correcto
-     * @param movement movimiento deseado
-     * @return verdadero si el movimiento es correcto, galse en caso contrario
-     */
     private boolean isCorrectMovement(Movement movement) {
 
         boolean nearer = true;
