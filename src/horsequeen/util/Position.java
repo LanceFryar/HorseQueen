@@ -13,7 +13,7 @@ public class Position implements Cloneable{
      * @param col columna en el tablero
      * @param row fila en el tablero
      */
-    public Position(int col, int row) {
+    public Position(int row, int col) {
         this.col = col;
         this.row = row;
     }

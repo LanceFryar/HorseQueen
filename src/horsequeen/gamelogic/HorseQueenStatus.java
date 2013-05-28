@@ -27,11 +27,11 @@ public class HorseQueenStatus implements Cloneable {
         board = new Board(COLS, ROWS);
 
         whiteQueen = new Queen(WHITE);
-        whiteQueen.setPosition(new Position(COLS - 1, (ROWS / 2)));
+        whiteQueen.setPosition(new Position((ROWS / 2), COLS - 1));
         board.setPieceAt(whiteQueen.getPosition(), whiteQueen);
 
         blackQueen = new Queen(BLACK);
-        blackQueen.setPosition(new Position(0, (ROWS / 2) - 1));
+        blackQueen.setPosition(new Position(((ROWS/2)-1), 0));
         board.setPieceAt(blackQueen.getPosition(), blackQueen);
 
         actualPlayer = WHITE;
@@ -63,11 +63,13 @@ public class HorseQueenStatus implements Cloneable {
         if (!isCorrectMovement(movement)) {
         } else if (board.getPieceAt(movement.getSource()) instanceof Baby) {
             babyMovement(movement);
+            actualPlayer = 1 - actualPlayer;
         } else if (board.getPieceAt(movement.getSource()) instanceof Queen) {
             queenMovement(movement);
+            actualPlayer = 1 - actualPlayer;
         }
 
-        actualPlayer = 1 - actualPlayer;
+        
 
     }
 
@@ -107,8 +109,8 @@ public class HorseQueenStatus implements Cloneable {
      */
     public List<Movement> getPosibleMovements() {
         List posibleMovements = new LinkedList();
-        for (int i = 0; i < COLS; i++) {
-            for (int j = 0; j < ROWS; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
                 Position position = new Position(i, j);
                 if (board.getPieceAt(position) != null
                         && board.getPieceAt(position).getColor() == actualPlayer) {
@@ -285,9 +287,9 @@ public class HorseQueenStatus implements Cloneable {
             System.out.print(" " + i + " ");
         }
         System.out.println();
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                Position position = new Position(i, j);
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                Position position = new Position(j, i);
                 if (board.getPieceAt(position) instanceof Baby) {
                     System.out.print("[B");
                     if (board.getPieceAt(position).getColor() == BLACK) {

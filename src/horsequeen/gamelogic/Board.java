@@ -13,10 +13,10 @@ public class Board implements Cloneable{
     
     private Cell cells[][];
 
-    public Board(int rows, int cols) {
-        cells = new Cell[rows][cols];
-        for (int i=0; i<rows; i++){
-            for (int j=0; j<cols; j++){
+    public Board(int cols, int rows) {
+        cells = new Cell[cols][rows];
+        for (int i=0; i<cols; i++){
+            for (int j=0; j<rows; j++){
                 cells[i][j] = new Cell();
             }
         }
@@ -28,7 +28,7 @@ public class Board implements Cloneable{
      * @return 
      */
     public Piece getPieceAt (Position position){
-        return cells[position.getCol()][position.getRow()].getPiece();
+        return cells[position.getRow()][position.getCol()].getPiece();
     }
     
     /**
@@ -39,7 +39,7 @@ public class Board implements Cloneable{
     public void setPieceAt(Position position, Piece piece){
         if (piece!=null)
             piece.setPosition(position);
-        cells[position.getCol()][position.getRow()].setPiece(piece);
+        cells[position.getRow()][position.getCol()].setPiece(piece);
     }
     
     @Override

@@ -45,8 +45,8 @@ public class PositioningHeuristic implements Heuristic{
         }
         
         double result = 0;
-        for (int i=0; i<COLS; i++){
-            for (int j=0; j<ROWS; j++){
+        for (int i=0; i<ROWS; i++){
+            for (int j=0; j<COLS; j++){
                 if (status.getBoard().getPieceAt(new Position(i, j))!=null
                        && status.getBoard().getPieceAt(new Position(i, j)).getColor()==player){
                     switch (j){
