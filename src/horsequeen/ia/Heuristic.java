@@ -15,5 +15,6 @@ public interface Heuristic {
      *
      * @return
      */
-     public double h(HorseQueenStatus status);
+     
+     public double h(HorseQueenStatus status, int player);
 }

@@ -52,8 +52,6 @@ public class HorseQueenStatus implements Cloneable {
     public Queen getBlackQueen() {
         return blackQueen;
     }
-    
-    
 
     /**
      * Metodo para mover una ficha. Es la operacion basica del juego
@@ -86,6 +84,7 @@ public class HorseQueenStatus implements Cloneable {
     public boolean isTerminal() {
         if (whiteQueen == null
                 || blackQueen == null
+                || getPosibleMovements()==null
                 || whiteQueen.getStack() == 1
                 || blackQueen.getStack() == 1
                 || getPosibleMovementsFor(whiteQueen.getPosition()) == null
@@ -95,8 +94,8 @@ public class HorseQueenStatus implements Cloneable {
             return false;
         }
     }
-    
-    public Board getBoard(){
+
+    public Board getBoard() {
         return board;
     }
 
@@ -191,6 +190,11 @@ public class HorseQueenStatus implements Cloneable {
             board.setPieceAt(movement.getSource(), new Baby(actualPlayer));
         } // Movimiento de conquista -> come y no deja baby
         else {
+            if (board.getPieceAt(movement.getDestination()) == whiteQueen) {
+                whiteQueen = null;
+            } else if (board.getPieceAt(movement.getDestination()) == blackQueen) {
+                blackQueen = null;
+            }
             board.setPieceAt(movement.getDestination(),
                     board.getPieceAt(movement.getSource()));
             board.setPieceAt(movement.getSource(), null);

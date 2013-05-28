@@ -44,7 +44,7 @@ import horsequeen.ia.Metrics;
 public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         AdversarialSearch<STATE, ACTION> {
 
-    public static final int P = 4;
+   
     Game<STATE, ACTION, PLAYER> game;
     private int expandedNodes;
 
@@ -69,7 +69,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         for (ACTION action : game.getActions(state)) {
             double value = minValue(game.getResult(state, action), player,
                     Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
-            if (value > resultValue) {
+            if (value >= resultValue) {
                 result = action;
                 resultValue = value;
             }

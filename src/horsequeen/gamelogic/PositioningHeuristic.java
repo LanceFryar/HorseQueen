@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package horsequeen.ia;
+package horsequeen.gamelogic;
 
-import horsequeen.gamelogic.HorseQueenStatus;
+import horsequeen.ia.Heuristic;
 import static horsequeen.gamelogic.HorseQueenStatus.COLS;
 import static horsequeen.gamelogic.HorseQueenStatus.ROWS;
 import static horsequeen.gamelogic.HorseQueenStatus.WHITE;
@@ -17,12 +17,12 @@ import horsequeen.util.Position;
 public class PositioningHeuristic implements Heuristic{
     
     @Override
-    public double h(HorseQueenStatus status){
+    public double h(HorseQueenStatus status, int player){
         double result = 0;
         for (int i=0; i<COLS; i++){
             for (int j=0; j<ROWS; j++){
                 if (status.getBoard().getPieceAt(new Position(i, j))!=null
-                       && status.getBoard().getPieceAt(new Position(i, j)).getColor()==status.getActualPlayer()){
+                       && status.getBoard().getPieceAt(new Position(i, j)).getColor()==player){
                     switch (j){
                         case 4: 
                             result+=3;
@@ -41,7 +41,7 @@ public class PositioningHeuristic implements Heuristic{
                 }
             }
         }
-        if (status.getActualPlayer()==WHITE){
+        if (player==HorseQueenStatus.WHITE){
             if (status.getBlackQueen()==null 
                     || status.getPosibleMovementsFor(status.getBlackQueen().getPosition())==null
                     || status.getBlackQueen().getStack()==1){

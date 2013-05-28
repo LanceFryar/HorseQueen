@@ -4,8 +4,9 @@ import horsequeen.gamelogic.HorseQueenGame;
 import horsequeen.gamelogic.HorseQueenStatus;
 import horsequeen.gamelogic.Movement;
 import horsequeen.ia.AlphaBetaSearch;
-import horsequeen.ia.PositioningHeuristic;
-import horsequeen.ia.QueenStackHeuristic;
+import horsequeen.gamelogic.PositioningHeuristic;
+import horsequeen.gamelogic.PossibleMovementsHeuristic;
+import horsequeen.gamelogic.QueenStackHeuristic;
 import java.io.IOException;
 
 /**
@@ -41,8 +42,8 @@ public class Main /*extends JFrame*/{
     
     public static void main (String []args) throws IOException{
         HorseQueenGame game = new HorseQueenGame();
-        game.setBlackPlayerHeuristic(new PositioningHeuristic());
-        game.setWhitePlayerHeuristic(new QueenStackHeuristic());
+        game.setBlackPlayerHeuristic(new QueenStackHeuristic());
+        game.setWhitePlayerHeuristic(new PossibleMovementsHeuristic());
         AlphaBetaSearch<HorseQueenStatus, Movement,Integer> search = new AlphaBetaSearch(game);
         game.getActualStatus().showState();
         

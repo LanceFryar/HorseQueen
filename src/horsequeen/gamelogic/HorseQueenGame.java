@@ -65,8 +65,8 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
     public HorseQueenStatus getResult(HorseQueenStatus state, Movement action) {
         HorseQueenStatus result;
         result = (HorseQueenStatus)state.clone();
-        state.move(action);
-        return state;
+        result.move(action);
+        return result;
     }
 
     @Override
@@ -77,10 +77,10 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
     @Override
     public double getUtility(HorseQueenStatus state, Integer player) {
         if (player==HorseQueenStatus.WHITE){
-            return whitePlayerHeuristic.h(state);
+            return whitePlayerHeuristic.h(state, player);
         }
         else{
-            return blackPlayerHeuristic.h(state);
+            return blackPlayerHeuristic.h(state, player);
         }
     }
 

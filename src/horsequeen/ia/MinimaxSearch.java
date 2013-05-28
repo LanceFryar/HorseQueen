@@ -45,7 +45,6 @@ public class MinimaxSearch<STATE, ACTION, PLAYER> implements
 		AdversarialSearch<STATE, ACTION> {
 
     
-        public static final int P = 4;
 	private Game<STATE, ACTION, PLAYER> game;
 	private int expandedNodes;
 
@@ -67,7 +66,7 @@ public class MinimaxSearch<STATE, ACTION, PLAYER> implements
 		PLAYER player = game.getPlayer(state);
 		for (ACTION action : game.getActions(state)) {
 			double value = minValue(game.getResult(state, action), player, 0);
-			if (value > resultValue) {
+			if (value >= resultValue) {
 				result = action;
 				resultValue = value;
 			}
