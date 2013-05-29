@@ -64,19 +64,19 @@ public class Tablero extends JPanel implements clickListener{
             List<Movement> moves =this.game.getActualStatus().getPosibleMovementsFor(pos);
             for(Movement move : moves){
                 lastMoved=pos;
-                paneles[move.getDestination().getCol()][move.getDestination().getRow()].setPosibleMovement(Color.red);
-                paneles[move.getDestination().getCol()][move.getDestination().getRow()].setBotonVisible(true);
+                paneles[move.getDestination().getRow()][move.getDestination().getCol()].setPosibleMovement(Color.red);
+                paneles[move.getDestination().getRow()][move.getDestination().getCol()].setBotonVisible(true);
                 this.repaint();
             }
         }else{
             movement=false;
             List<Movement> moves =this.game.getActualStatus().getPosibleMovementsFor(lastMoved);
             game.getActualStatus().move(new Movement(lastMoved, pos));
-            paneles[pos.getCol()][pos.getRow()].unsetPosibleMovement();
+            paneles[pos.getRow()][pos.getCol()].unsetPosibleMovement();
             for(Movement move : moves){
                 if(!pos.equals(move.getDestination())){
-                    paneles[move.getDestination().getCol()][move.getDestination().getRow()].unsetPosibleMovement();
-                    paneles[move.getDestination().getCol()][move.getDestination().getRow()].setBotonVisible(false);
+                    paneles[move.getDestination().getRow()][move.getDestination().getCol()].unsetPosibleMovement();
+                    paneles[move.getDestination().getRow()][move.getDestination().getCol()].setBotonVisible(false);
                     this.repaint();
                 }
             }
