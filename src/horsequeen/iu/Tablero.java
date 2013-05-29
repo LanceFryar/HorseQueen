@@ -1,23 +1,34 @@
 
 package horsequeen.iu;
 
+import horsequeen.gamelogic.HorseQueenGame;
+import horsequeen.gamelogic.Movement;
+import horsequeen.util.Position;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Tablero extends JPanel{
+public class Tablero extends JPanel implements clickListener{
     
     private Celda [][]paneles;
     private int rows,columns;
     private int width,height;
     private Color color1,color2;
+    private HorseQueenGame game;
+    private Position lastMoved;
+    private boolean movement;
 
-    public Tablero(int rows, int columns, int width, int height) {
+    public Tablero(int rows, int columns, int width, int height, HorseQueenGame game) {
+        this.movement=false;
         this.rows = rows;
         this.columns = columns;
         this.width = width;
         this.height = height;
+        this.game=game;
         this.setSize(new Dimension(width,height));
         this.setMaximumSize(new Dimension(width,height));
         this.setMinimumSize(new Dimension(width,height));
@@ -25,27 +36,54 @@ public class Tablero extends JPanel{
         paneles= new Celda[rows][columns];
         color1=Color.blue;
         color2=Color.white;
-        int x=0,y=0;
-        int dx=x+width/rows,dy=y+height/columns;
+        this.setLayout(new GridLayout(rows, columns));
+        int dx=width/rows,dy=height/columns;
         for(int i=0;i<rows;i++){
-            x=0;
             for(int j=0;j<columns;j++){
-                if((j+i)%2==0) paneles[i][j] = new Celda(x,y,dx,dy,color1);
-                else paneles[i][j] = new Celda(x,y,dx,dy,color2);
-                x=x+dx;
+                if((j+i)%2==0) paneles[i][j] = new Celda(i,j,dx,dy,color1);
+                else paneles[i][j] = new Celda(i,j,dx,dy,color2);
+                this.add(paneles[i][j]);
+                paneles[i][j].AddOnClickListener(this);
+                paneles[i][j].setBoton(new JButton("WQ 8"));
             }
-            y+=dy;
         }
+        paneles[0][columns/2].setBotonVisible(true);
+        paneles[rows-1][columns/2].setBotonVisible(true);
     }
     
     @Override
     public void paint(Graphics g){
+        super.paint(g);
         g.setColor(Color.black);
-        g.drawRect(0, 0, width,height); 
-        for(Celda []row : paneles){
-            for(Celda celda :row){
-                celda.draw(g);
+    }
+
+    @Override
+    public void onClick(Position pos) {
+        if(!isMoving()){
+            movement=true;
+            List<Movement> moves =this.game.getActualStatus().getPosibleMovementsFor(pos);
+            for(Movement move : moves){
+                lastMoved=pos;
+                paneles[move.getDestination().getCol()][move.getDestination().getRow()].setPosibleMovement(Color.red);
+                paneles[move.getDestination().getCol()][move.getDestination().getRow()].setBotonVisible(true);
+                this.repaint();
+            }
+        }else{
+            movement=false;
+            List<Movement> moves =this.game.getActualStatus().getPosibleMovementsFor(lastMoved);
+            game.getActualStatus().move(new Movement(lastMoved, pos));
+            paneles[pos.getCol()][pos.getRow()].unsetPosibleMovement();
+            for(Movement move : moves){
+                if(!pos.equals(move.getDestination())){
+                    paneles[move.getDestination().getCol()][move.getDestination().getRow()].unsetPosibleMovement();
+                    paneles[move.getDestination().getCol()][move.getDestination().getRow()].setBotonVisible(false);
+                    this.repaint();
+                }
             }
         }
+    }
+
+    private boolean isMoving() {
+        return movement;
     }
 }

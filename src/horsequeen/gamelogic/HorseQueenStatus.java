@@ -99,7 +99,7 @@ public class HorseQueenStatus implements Cloneable{
         return posibleMovements;
     }
     
-    private List<Movement> getPosibleMovementsFor(Position position){
+    public List<Movement> getPosibleMovementsFor(Position position){
         List<Movement> posibleMovements= new LinkedList();
         Movement movement;
         for (int[] offset : OFFSETS){

@@ -17,11 +17,11 @@ public class OPanel extends JPanel{
     private JTextField filas;
     private JLabel label;
 
-    public OPanel() {
-        this.setSize(new Dimension(500,100));
-        this.setMaximumSize(new Dimension(500,100));
-        this.setMinimumSize(new Dimension(500,100));
-        this.setPreferredSize(new Dimension(500,100));
+    public OPanel(int width, int height) {
+        this.setSize(new Dimension(width,height));
+        this.setMaximumSize(new Dimension(width,height));
+        this.setMinimumSize(new Dimension(width,height));
+        this.setPreferredSize(new Dimension(width,height));
         
         reset= new JButton("Reset");
         reset.setVisible(true);

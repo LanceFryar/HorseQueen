@@ -1,20 +1,13 @@
 package horsequeen;
 
+import horsequeen.gamelogic.HorseQueenGame;
 import horsequeen.iu.OPanel;
 import horsequeen.iu.Tablero;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JApplet;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -26,28 +19,31 @@ public class Main extends JFrame{
     private OPanel opciones;
     
     public Main() {
-        this.setSize(new Dimension(600, 800));
+        
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(new Dimension(801, 601));
         this.setVisible(true);
+        this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        tablero= new Tablero(8, 8,600,600,new HorseQueenGame());
+        tablero.setVisible(true);
+        this.add(tablero);
         
-        tablero= new Tablero(8, 8,600,600);
-        tablero.setVisible(true); 
-        this.add(tablero,BorderLayout.PAGE_END);
-        
-        opciones= new OPanel();
+        opciones= new OPanel(199,600);
         opciones.setVisible(true);
         opciones.setBackground(Color.lightGray);
-        this.add(opciones,BorderLayout.PAGE_START);
-        
+        this.add(opciones);
         pack();
         
     }
     
+    @Override
     public void paint(Graphics g){
         super.paint(g);
     }
     
     public static void main (String []args){
-        new Main();
+        Main main = new Main();
+        
     }
-      
+
 }
