@@ -30,7 +30,7 @@ public class Main extends JFrame{
         this.setVisible(true);
         
         tablero= new Tablero(8, 8,600,600);
-        tablero.setVisible(true);
+        tablero.setVisible(true); 
         this.add(tablero,BorderLayout.PAGE_END);
         
         opciones= new OPanel();
