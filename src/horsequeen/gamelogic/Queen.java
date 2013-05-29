@@ -13,7 +13,7 @@ package horsequeen.gamelogic;
 public class Queen extends Piece {
     
     private int stack;
-    public static final int STACK=7;
+    public static final int STACK=20;
 
     public Queen(int color) {
         super(color);
