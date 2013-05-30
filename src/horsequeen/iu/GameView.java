@@ -36,6 +36,7 @@ public class GameView extends JFrame {
     public GameView() {
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setTitle("Horse Queen");
         this.setSize(new Dimension(400, 400));
         this.setVisible(true);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -86,12 +87,13 @@ public class GameView extends JFrame {
         makeDecisionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                optionPanel.getDesicionLabel().setVisible(true);
+                logPanel.writeLog("Decidiendo...\n"); 
                 Movement move =
                         (Movement) search.makeDecision(horseQueenGame.getActualStatus());
                 horseQueenGame.move(move);
-                optionPanel.getDesicionLabel().setVisible(false);
-                logPanel.writeLog(move.toString() + "\n");
+                
+                logPanel.writeLog(move.toString() + "\n" + search.getMetrics() 
+                        + "\n");
                 tabletop.update();
 
             }
@@ -101,9 +103,9 @@ public class GameView extends JFrame {
 
     private JComboBox<Heuristic> createWhiteHeuristicComboBox() {
         JComboBox<Heuristic> whiteHeuristicComboBox = new JComboBox<>();
+        whiteHeuristicComboBox.addItem(new QueenStackHeuristic());
         whiteHeuristicComboBox.addItem(new PositioningHeuristic());
         whiteHeuristicComboBox.addItem(new PossibleMovementsHeuristic());
-        whiteHeuristicComboBox.addItem(new QueenStackHeuristic());
         whiteHeuristicComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -115,9 +117,10 @@ public class GameView extends JFrame {
 
     private JComboBox<Heuristic> createBlackHeuristicComboBox() {
         JComboBox<Heuristic> blackHeuristicComboBox = new JComboBox<>();
+        blackHeuristicComboBox.addItem(new QueenStackHeuristic());
         blackHeuristicComboBox.addItem(new PositioningHeuristic());
         blackHeuristicComboBox.addItem(new PossibleMovementsHeuristic());
-        blackHeuristicComboBox.addItem(new QueenStackHeuristic());
+        
         blackHeuristicComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {

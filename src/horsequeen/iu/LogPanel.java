@@ -2,6 +2,7 @@ package horsequeen.iu;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.*;
 
 /**
@@ -24,7 +25,7 @@ public class LogPanel extends JPanel{
     
     public void setLogText() {
         logText = new JTextArea();
-        logText.setEditable(false);
+        logText.setEditable(false); 
         JScrollPane logScrollPane = new JScrollPane(logText);
         logScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(logScrollPane);

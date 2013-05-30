@@ -43,4 +43,8 @@ public class QueenStackHeuristic implements Heuristic{
     
     }
     
+    public String toString(){
+        return "QueenStackHeuristic";
+    }
+    
 }

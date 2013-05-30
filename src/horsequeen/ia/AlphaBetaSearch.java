@@ -79,7 +79,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
     public Metrics getMetrics() {
         Metrics result = new Metrics();
         result.set("expandedNodes", expandedNodes);
-        result.set("time",time);
+        result.set("time",time/1000);
         result.set("movements", movements);
         return result;
     }
