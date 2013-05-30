@@ -13,7 +13,7 @@ public class Position {
      * @param col columna en el tablero
      * @param row fila en el tablero
      */
-    public Position(int col, int row) {
+    public Position(int row, int col) {
         this.col = col;
         this.row = row;
     }
@@ -64,7 +64,7 @@ public class Position {
     }
     
     public Position move (int[] offset){
-        return new Position(this.getCol()+offset[0], this.getRow()+offset[1]);
+        return new Position(this.getRow()+offset[0], this.getCol()+offset[1]);
     }
     
     

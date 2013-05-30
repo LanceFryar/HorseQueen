@@ -28,7 +28,7 @@ public class Board {
      * @return 
      */
     public Piece getPieceAt (Position position){
-        return cells[position.getCol()][position.getRow()].getPiece();
+        return cells[position.getRow()][position.getCol()].getPiece();
     }
     
     /**
@@ -39,7 +39,7 @@ public class Board {
     public void setPieceAt(Position position, Piece piece){
         if (piece!=null)
             piece.setPosition(position);
-        cells[position.getCol()][position.getRow()].setPiece(piece);
+        cells[position.getRow()][position.getCol()].setPiece(piece);
     }
     
     

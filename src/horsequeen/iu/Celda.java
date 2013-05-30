@@ -18,13 +18,12 @@ public class Celda extends JPanel{
     private int x,y;
     private Color color;
     private JButton boton;
-    private ArrayList<clickListener> listeners;
+    private clickListener listener;
     
     public Celda(int x,int y,int width, int height,Color color) {
         this.x=x;
         this.y=y;
         this.color=color;
-        this.listeners=new ArrayList<>();
         this.setBackground(color);
         this.setSize(new Dimension(width,height));
         this.setMaximumSize(new Dimension(width,height));
@@ -42,20 +41,20 @@ public class Celda extends JPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    for(clickListener listener : listeners)
                         listener.onClick(new Position(getXPos(), getYPos()));
                 }
             });
         }
     }
-    public void setBoton2(JButton boton){
-        this.add(boton);
-        this.boton=boton;
-    }
     
     public void AddOnClickListener(clickListener listener){
-        listeners.add(listener);
+        this.listener=listener;
     }
+
+    public JButton getBoton() {
+        return boton;
+    }
+    
     
     public void paint(Graphics g){
         super.paint(g);
@@ -75,10 +74,6 @@ public class Celda extends JPanel{
     
     public void unsetPosibleMovement(){
         this.setBackground(color);
-    }
-
-    void setBotonVisible(boolean b) {
-        this.boton.setVisible(b);
     }
     
     public boolean isBotonVisible(){

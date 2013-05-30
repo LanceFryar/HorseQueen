@@ -30,11 +30,21 @@ public class Main extends JFrame {
         this.setVisible(true);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
+        
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 reset();
+            }
+        });
+        
+        JButton makeDecisionButton = new JButton("Make decision");
+        makeDecisionButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
             }
         });
 
