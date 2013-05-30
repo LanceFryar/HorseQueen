@@ -32,12 +32,6 @@ public class Baby extends Piece{
         return baby;
     }
     
-    @Override
-    public Baby clone(){
-        Baby baby = new Baby(color);
-        baby.position=this.position.clone();
-        return baby;
-    }
     
     
     

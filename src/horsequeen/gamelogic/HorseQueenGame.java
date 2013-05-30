@@ -33,39 +33,6 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
     public void setBlackPlayerHeuristic(Heuristic blackPlayerHeuristic) {
         this.blackPlayerHeuristic = blackPlayerHeuristic;
     }
-
-    /**
-     * Obtiene la heuristica que usara el jugaro blanco
-     * @return  
-     */
-    public Heuristic getWhitePlayerHeuristic() {
-        return whitePlayerHeuristic;
-    }
-    
-    /**
-     * Establece la heuristica que usarara el jugador blanco
-     * @param whitePlayerHeuristic 
-     */
-
-    public void setWhitePlayerHeuristic(Heuristic whitePlayerHeuristic) {
-        this.whitePlayerHeuristic = whitePlayerHeuristic;
-    }
-
-    /**
-     * Obtiene la heuristica que usara el jugaro negro
-     * @return  
-     */
-    public Heuristic getBlackPlayerHeuristic() {
-        return blackPlayerHeuristic;
-    }
-
-    /**
-     * Establece la heuristica que usarara el jugador negro
-     * @param whitePlayerHeuristic 
-     */
-    public void setBlackPlayerHeuristic(Heuristic blackPlayerHeuristic) {
-        this.blackPlayerHeuristic = blackPlayerHeuristic;
-    }
     
     /**
      * Obtiene el estado actual del juego

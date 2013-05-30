@@ -31,7 +31,7 @@ public class HorseQueenStatus implements Cloneable {
         board.setPieceAt(whiteQueen.getPosition(), whiteQueen);
 
         blackQueen = new Queen(BLACK);
-        blackQueen.setPosition(new Position(((ROWS/2)-1), 0));
+        blackQueen.setPosition(new Position(0, (COLS/2)-1));
         board.setPieceAt(blackQueen.getPosition(), blackQueen);
 
         actualPlayer = WHITE;
