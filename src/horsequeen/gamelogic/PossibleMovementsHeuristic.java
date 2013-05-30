@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package horsequeen.gamelogic;
 
 import static horsequeen.gamelogic.HorseQueenStatus.WHITE;
 import horsequeen.ia.Heuristic;
 
 /**
- *
+ * Heuristica que valora el numero posible de movimientos del jugador
  * @author josue
  */
 public class PossibleMovementsHeuristic implements Heuristic{
@@ -40,6 +36,11 @@ public class PossibleMovementsHeuristic implements Heuristic{
             }
         }
         return status.getPosibleMovements().size();
+    }
+    
+    @Override
+    public String toString(){
+        return "PossibleMovementsHeuristic";
     }
     
     

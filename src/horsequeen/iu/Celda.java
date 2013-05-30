@@ -1,28 +1,83 @@
 
 package horsequeen.iu;
 
+import horsequeen.util.Position;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Celda extends JPanel{
     private int x,y;
-    private int width,height;
     private Color color;
-
-    public Celda(int x, int y,int width, int height,Color color) {
+    private JButton boton;
+    private clickListener listener;
+    
+    public Celda(int x,int y,int width, int height,Color color) {
         this.x=x;
         this.y=y;
-        this.width = width;
-        this.height = height;
         this.color=color;
+        this.setBackground(color);
+        this.setSize(new Dimension(width,height));
+        this.setMaximumSize(new Dimension(width,height));
+        this.setMinimumSize(new Dimension(width,height));
+        this.setPreferredSize(new Dimension(width,height));
+        this.setVisible(true);
     }
     
-    public void draw(Graphics g){
-        g.setColor(color);
-        g.fillRect(x, y, width, height);
-        g.setColor(Color.black);
-        g.drawRect(x, y, width, height);
+    public void setBoton(JButton boton){
+        this.add(boton);
+        this.boton=boton;
+        boton.setVisible(false);
+        if(boton!=null){
+            this.boton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        listener.onClick(new Position(getXPos(), getYPos()));
+                }
+            });
+        }
+    }
+    
+    public void AddOnClickListener(clickListener listener){
+        this.listener=listener;
+    }
+
+    public JButton getBoton() {
+        return boton;
+    }
+    
+    
+    public void paint(Graphics g){
+        super.paint(g);
+    }
+    
+    public int getXPos(){
+        return x;
+    
+    }    
+    public int getYPos(){
+        return y;
+    }
+    
+    public void setPosibleMovement(Color color){
+        this.setBackground(color);
+    }
+    
+    public void unsetPosibleMovement(){
+        this.setBackground(color);
+    }
+    
+    public boolean isBotonVisible(){
+        return this.boton.isVisible();
     }
 
 }

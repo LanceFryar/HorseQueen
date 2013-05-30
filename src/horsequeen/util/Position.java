@@ -64,7 +64,7 @@ public class Position implements Cloneable{
     }
     
     public Position move (int[] offset){
-        return new Position(this.getCol()+offset[0], this.getRow()+offset[1]);
+        return new Position(this.getRow()+offset[0], this.getCol()+offset[1]);
     }
     
     @Override
