@@ -72,4 +72,9 @@ public class Position implements Cloneable{
         return new Position(col, row);
     }  
     
+    @Override
+    public String toString(){
+        return "(" + col + ", " + row +")";
+    }
+    
 }

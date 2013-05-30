@@ -7,20 +7,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Celda extends JPanel{
+public class TabletopCell extends JPanel{
     private int x,y;
     private Color color;
     private JButton boton;
     private clickListener listener;
     
-    public Celda(int x,int y,int width, int height,Color color) {
+    public TabletopCell(int x,int y,int width, int height,Color color) {
         this.x=x;
         this.y=y;
         this.color=color;
@@ -38,7 +34,6 @@ public class Celda extends JPanel{
         boton.setVisible(false);
         if(boton!=null){
             this.boton.addActionListener(new ActionListener() {
-
                 @Override
                 public void actionPerformed(ActionEvent e) {
                         listener.onClick(new Position(getXPos(), getYPos()));

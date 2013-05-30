@@ -8,7 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class OPanel extends JPanel{
+public class OptionPanel extends JPanel{
 
     private JButton reset, makeDecision;
     private JComboBox whiteHeuristic, blackHeuristic;
@@ -35,7 +35,7 @@ public class OPanel extends JPanel{
         this.add(blackHeuristic);
     }
             
-    public OPanel(int width, int height) {
+    public OptionPanel(int width, int height) {
         this.setSize(new Dimension(width,height));
         this.setMaximumSize(new Dimension(width,height));
         this.setMinimumSize(new Dimension(width,height));

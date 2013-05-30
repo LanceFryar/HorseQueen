@@ -15,9 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Tablero extends JPanel implements clickListener {
+public class Tabletop extends JPanel implements clickListener {
 
-    private Celda[][] paneles;
+    private TabletopCell[][] paneles;
     private int rows, columns;
     private int width, height;
     private Color color1, color2;
@@ -25,7 +25,7 @@ public class Tablero extends JPanel implements clickListener {
     private Position lastMoved;
     private boolean movement;
 
-    public Tablero(int rows, int columns, int width, int height, HorseQueenGame game) {
+    public Tabletop(int rows, int columns, int width, int height, HorseQueenGame game) {
         this.movement = false;
         this.rows = rows;
         this.columns = columns;
@@ -36,7 +36,7 @@ public class Tablero extends JPanel implements clickListener {
         this.setMaximumSize(new Dimension(width, height));
         this.setMinimumSize(new Dimension(width, height));
         this.setPreferredSize(new Dimension(width, height));
-        paneles = new Celda[rows][columns];
+        paneles = new TabletopCell[rows][columns];
         color1 = Color.blue;
         color2 = Color.white;
         this.setLayout(new GridLayout(rows, columns));
@@ -44,9 +44,9 @@ public class Tablero extends JPanel implements clickListener {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if ((j + i) % 2 == 0) {
-                    paneles[i][j] = new Celda(i, j, dx, dy, color1);
+                    paneles[i][j] = new TabletopCell(i, j, dx, dy, color1);
                 } else {
-                    paneles[i][j] = new Celda(i, j, dx, dy, color2);
+                    paneles[i][j] = new TabletopCell(i, j, dx, dy, color2);
                 }
                 this.add(paneles[i][j]);
                 paneles[i][j].AddOnClickListener(this);

@@ -29,6 +29,9 @@ public class Movement {
         return destination;
     }
     
-    
+    @Override
+    public String toString(){
+        return source.toString() + "----->" + destination.toString();
+    }
     
 }
