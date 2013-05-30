@@ -45,7 +45,7 @@ public class PositioningHeuristic implements Heuristic{
             for (int j=0; j<COLS; j++){
                 if (status.getBoard().getPieceAt(new Position(i, j))!=null
                        && status.getBoard().getPieceAt(new Position(i, j)).getColor()==player){
-                    switch (j){
+                    switch (i){
                         case 4: 
                             result+=3;
                             break;
@@ -64,6 +64,10 @@ public class PositioningHeuristic implements Heuristic{
             }
         }
         return result;
+    }
+    
+    public String toString(){
+        return "PositioningHeuristic";
     }
     
 }

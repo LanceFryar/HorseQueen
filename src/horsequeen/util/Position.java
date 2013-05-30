@@ -4,7 +4,7 @@ package horsequeen.util;
  * Clase que representa una posicion en el tablero.
  * @author josue
  */
-public class Position {
+public class Position implements Cloneable{
     private int col;
     private int row;
 
@@ -67,7 +67,9 @@ public class Position {
         return new Position(this.getRow()+offset[0], this.getCol()+offset[1]);
     }
     
-    
-    
+    @Override
+    public Position clone(){
+        return new Position(col, row);
+    }  
     
 }

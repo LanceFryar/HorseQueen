@@ -1,6 +1,7 @@
 package horsequeen.gamelogic;
 
 import horsequeen.ia.Game;
+import horsequeen.ia.Heuristic;
 import java.util.List;
 
 /**
@@ -10,15 +11,57 @@ import java.util.List;
 public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>{
     
     private HorseQueenStatus actualStatus;
+    private Heuristic whitePlayerHeuristic;
+    private Heuristic blackPlayerHeuristic;
 
     public HorseQueenGame() {
         actualStatus =  new HorseQueenStatus();
     }
+
+    /**
+     * Obtiene la heuristica que usara el jugaro blanco
+     * @return  
+     */
+    public Heuristic getWhitePlayerHeuristic() {
+        return whitePlayerHeuristic;
+    }
     
+    /**
+     * Establece la heuristica que usarara el jugador blanco
+     * @param whitePlayerHeuristic 
+     */
+
+    public void setWhitePlayerHeuristic(Heuristic whitePlayerHeuristic) {
+        this.whitePlayerHeuristic = whitePlayerHeuristic;
+    }
+
+    /**
+     * Obtiene la heuristica que usara el jugaro negro
+     * @return  
+     */
+    public Heuristic getBlackPlayerHeuristic() {
+        return blackPlayerHeuristic;
+    }
+
+    /**
+     * Establece la heuristica que usarara el jugador negro
+     * @param whitePlayerHeuristic 
+     */
+    public void setBlackPlayerHeuristic(Heuristic blackPlayerHeuristic) {
+        this.blackPlayerHeuristic = blackPlayerHeuristic;
+    }
+    
+    /**
+     * Obtiene el estado actual del juego
+     * @return 
+     */
     public HorseQueenStatus getActualStatus(){
         return actualStatus;
     }
+    
 
+
+    
     @Override
     public HorseQueenStatus getInitialState() {
         return new HorseQueenStatus();
@@ -40,31 +83,38 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
     @Override
     public List<Movement> getActions(HorseQueenStatus state) {
         return state.getPosibleMovements();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public HorseQueenStatus getResult(HorseQueenStatus state, Movement action) {
         HorseQueenStatus result;
         result = (HorseQueenStatus)state.clone();
-        state.move(action);
-        return state;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        result.move(action);
+        return result;
     }
 
     @Override
     public boolean isTerminal(HorseQueenStatus state) {
         return state.isTerminal();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public double getUtility(HorseQueenStatus state, Integer player) {
-        return state.getUtility();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (player==HorseQueenStatus.WHITE){
+            return whitePlayerHeuristic.h(state, player);
+        }
+        else{
+            return blackPlayerHeuristic.h(state, player);
+        }
     }
 
-    
+    /**
+     * Realiza el moviemiento pasado como parametro en el estado actual
+     * @param movement 
+     */
+    public void move(Movement movement){
+        actualStatus.move(movement);
+    }
     
     
     

@@ -38,5 +38,10 @@ public class PossibleMovementsHeuristic implements Heuristic{
         return status.getPosibleMovements().size();
     }
     
+    @Override
+    public String toString(){
+        return "PossibleMovementsHeuristic";
+    }
+    
     
 }

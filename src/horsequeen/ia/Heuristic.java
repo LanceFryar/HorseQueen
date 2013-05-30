@@ -13,4 +13,6 @@ public interface Heuristic {
      */
      
      public double h(HorseQueenStatus status, int player);
+     @Override
+     public String toString();
 }
