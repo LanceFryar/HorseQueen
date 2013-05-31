@@ -8,6 +8,7 @@ import horsequeen.gamelogic.PossibleMovementsHeuristic;
 import horsequeen.gamelogic.QueenStackHeuristic;
 import horsequeen.ia.AdversarialSearch;
 import horsequeen.ia.AlphaBetaSearch;
+import horsequeen.ia.Game;
 import horsequeen.ia.Heuristic;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -91,11 +92,11 @@ public class GameView extends JFrame {
                 Movement move =
                         (Movement) search.makeDecision(horseQueenGame.getActualStatus());
                 horseQueenGame.move(move);
-                
                 logPanel.writeLog(move.toString() + "\n" + search.getMetrics() 
                         + "\n");
+                logPanel.writeLog(horseQueenGame.getActualStatus().getWiner() + 
+                       "ganan");
                 tabletop.update();
-
             }
         });
         return makeDecisionButton;

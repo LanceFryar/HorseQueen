@@ -87,10 +87,10 @@ public class Tabletop extends JPanel implements clickListener {
                 if (!pos.equals(move.getDestination())) {
                     paneles[move.getDestination().getRow()][move.getDestination().getCol()].unsetPosibleMovement();
                     paneles[move.getDestination().getRow()][move.getDestination().getCol()].getBoton().setVisible(false);
-                    update();
                     this.repaint();
                 }
             }
+            update();
         }
     }
 
@@ -99,41 +99,39 @@ public class Tabletop extends JPanel implements clickListener {
     }
 
     public void update() {
-        if (game.getActualStatus().isTerminal()){
+        if (game.getActualStatus().isTerminal()) {
             this.removeAll();
-            this.setLayout(new FlowLayout(FlowLayout.CENTER));
-            this.add(new JLabel(game.getActualStatus().getWiner()+" gana"));
-            
-            return;
-        }
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                Position position = new Position(i, j);
-                if (game.getActualStatus().getBoard().getPieceAt(position) == null) {
-                    paneles[i][j].getBoton().setVisible(false);
-                    paneles[i][j].getBoton().setText("X");
-                } else {
-                    paneles[i][j].getBoton().setVisible(true);
-                    if (game.getActualStatus().getBoard().getPieceAt(position).
-                            getColor() == HorseQueenStatus.WHITE) {
-                        if (game.getActualStatus().getBoard().getPieceAt(position) instanceof Queen) {
-                            paneles[i][j].getBoton().setText("WQ"
-                                    + game.getActualStatus().getWhiteQueen().getStack());
-
-                        } else {
-                            paneles[i][j].getBoton().setText("WB");
-                        }
+            this.repaint();
+        } else {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    Position position = new Position(i, j);
+                    if (game.getActualStatus().getBoard().getPieceAt(position) == null) {
+                        paneles[i][j].getBoton().setVisible(false);
+                        paneles[i][j].getBoton().setText("X");
                     } else {
-                        if (game.getActualStatus().getBoard().getPieceAt(position) instanceof Queen) {
-                            paneles[i][j].getBoton().setText("BQ"
-                                    + game.getActualStatus().getBlackQueen().getStack());
+                        paneles[i][j].getBoton().setVisible(true);
+                        if (game.getActualStatus().getBoard().getPieceAt(position).
+                                getColor() == HorseQueenStatus.WHITE) {
+                            if (game.getActualStatus().getBoard().getPieceAt(position) instanceof Queen) {
+                                paneles[i][j].getBoton().setText("WQ"
+                                        + game.getActualStatus().getWhiteQueen().getStack());
 
+                            } else {
+                                paneles[i][j].getBoton().setText("WB");
+                            }
                         } else {
-                            paneles[i][j].getBoton().setText("BB");
+                            if (game.getActualStatus().getBoard().getPieceAt(position) instanceof Queen) {
+                                paneles[i][j].getBoton().setText("BQ"
+                                        + game.getActualStatus().getBlackQueen().getStack());
+
+                            } else {
+                                paneles[i][j].getBoton().setText("BB");
+                            }
+
                         }
 
                     }
-
                 }
             }
         }

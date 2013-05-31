@@ -67,10 +67,7 @@ public class HorseQueenStatus implements Cloneable {
         } else if (board.getPieceAt(movement.getSource()) instanceof Queen) {
             queenMovement(movement);
             actualPlayer = 1 - actualPlayer;
-        }
-
-        
-
+        }       
     }
 
     
