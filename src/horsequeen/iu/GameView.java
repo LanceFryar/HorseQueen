@@ -48,7 +48,7 @@ public class GameView extends JFrame {
         createOptionPanel();
         createLogPanel();
         cretateTabletop();
-        
+
         pack();
     }
 
@@ -57,15 +57,13 @@ public class GameView extends JFrame {
         super.paint(g);
     }
 
-    
-
     private void reset() {
         remove(tabletop);
         horseQueenGame = new HorseQueenGame();
         horseQueenGame.setWhitePlayerHeuristic(optionPanel.getWhiteHeuristic());
         horseQueenGame.setBlackPlayerHeuristic(optionPanel.getBlackHeuristic());
         search = new AlphaBetaSearch(horseQueenGame, 4);
-       
+
         cretateTabletop();
         logPanel.cleanLog();
         repaint();
@@ -88,15 +86,15 @@ public class GameView extends JFrame {
         makeDecisionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                logPanel.writeLog("Decidiendo...\n"); 
-                Movement move =
-                        (Movement) search.makeDecision(horseQueenGame.getActualStatus());
-                horseQueenGame.move(move);
-                logPanel.writeLog(move.toString() + "\n" + search.getMetrics() 
-                        + "\n");
-                logPanel.writeLog(horseQueenGame.getActualStatus().getWiner() + 
-                       "ganan");
-                tabletop.update();
+                if (!horseQueenGame.getActualStatus().isTerminal()) {
+                    logPanel.writeLog("Decidiendo...\n");
+                    Movement move =
+                            (Movement) search.makeDecision(horseQueenGame.getActualStatus());
+                    horseQueenGame.move(move);
+                    logPanel.writeLog(move.toString() + "\n" + search.getMetrics()
+                            + "\n");
+                    tabletop.update();
+                }
             }
         });
         return makeDecisionButton;
@@ -121,7 +119,7 @@ public class GameView extends JFrame {
         blackHeuristicComboBox.addItem(new QueenStackHeuristic());
         blackHeuristicComboBox.addItem(new PositioningHeuristic());
         blackHeuristicComboBox.addItem(new PossibleMovementsHeuristic());
-        
+
         blackHeuristicComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -145,13 +143,13 @@ public class GameView extends JFrame {
 
     private void cretateTabletop() {
         tabletop = new Tabletop(HorseQueenStatus.ROWS, HorseQueenStatus.COLS,
-                500, 500, horseQueenGame);
+                500, 500, horseQueenGame, logPanel);
         tabletop.setVisible(true);
         this.add(tabletop);
     }
 
     private void createLogPanel() {
-        logPanel = new LogPanel(500,60);
+        logPanel = new LogPanel(500, 60);
         logPanel.setLogText();
         this.add(logPanel);
     }
