@@ -1,6 +1,7 @@
 
 package horsequeen.iu;
 
+import horsequeen.ia.Heuristic;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JButton;
@@ -18,12 +19,14 @@ public class OptionPanel extends JPanel{
         desicionLabel=new JLabel("Decidiendo...");
         desicionLabel.setVisible(false);
     }
-
-    public JLabel getDesicionLabel() {
-        return desicionLabel;
+    
+    public Heuristic getWhiteHeuristic(){
+        return (Heuristic) whiteHeuristic.getSelectedItem();
     }
     
-    
+    public Heuristic getBlackHeuristic(){
+        return (Heuristic) blackHeuristic.getSelectedItem();
+    }
 
     public void setWhiteHeuristicComboBox(JComboBox whiteHeuristic) {
         this.whiteHeuristic = whiteHeuristic;

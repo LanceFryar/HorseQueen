@@ -36,9 +36,9 @@ public class QueenStackHeuristic implements Heuristic{
             }
         }
         if (player==HorseQueenStatus.WHITE) 
-            return status.getWhiteQueen().getStack();
+            return status.getWhiteQueen().getStack()-status.getBlackQueen().getStack();
         else 
-            return status.getBlackQueen().getStack();
+            return status.getBlackQueen().getStack()-status.getWhiteQueen().getStack();
        
     
     }

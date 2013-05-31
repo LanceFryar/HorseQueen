@@ -35,7 +35,10 @@ public class PossibleMovementsHeuristic implements Heuristic{
                 return Double.POSITIVE_INFINITY;
             }
         }
-        return status.getPosibleMovements().size();
+        if (player==HorseQueenStatus.WHITE)
+            return status.getPosibleMovements().size();
+        else
+            return status.getPosibleMovements().size();
     }
     
     @Override

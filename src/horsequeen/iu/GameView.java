@@ -41,9 +41,9 @@ public class GameView extends JFrame {
         this.setVisible(true);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         horseQueenGame = new HorseQueenGame();
-        horseQueenGame.setWhitePlayerHeuristic(new PositioningHeuristic());
-        horseQueenGame.setBlackPlayerHeuristic(new PositioningHeuristic());
-        search = new AlphaBetaSearch(horseQueenGame, 2);
+        horseQueenGame.setWhitePlayerHeuristic(new QueenStackHeuristic());
+        horseQueenGame.setBlackPlayerHeuristic(new QueenStackHeuristic());
+        search = new AlphaBetaSearch(horseQueenGame, 4);
         createOptionPanel();
         createLogPanel();
         cretateTabletop();
@@ -61,9 +61,9 @@ public class GameView extends JFrame {
     private void reset() {
         remove(tabletop);
         horseQueenGame = new HorseQueenGame();
-        horseQueenGame.setWhitePlayerHeuristic(new PositioningHeuristic());
-        horseQueenGame.setBlackPlayerHeuristic(new PositioningHeuristic());
-        search = new AlphaBetaSearch(horseQueenGame, 2);
+        horseQueenGame.setWhitePlayerHeuristic(optionPanel.getWhiteHeuristic());
+        horseQueenGame.setBlackPlayerHeuristic(optionPanel.getBlackHeuristic());
+        search = new AlphaBetaSearch(horseQueenGame, 4);
        
         cretateTabletop();
         logPanel.cleanLog();
