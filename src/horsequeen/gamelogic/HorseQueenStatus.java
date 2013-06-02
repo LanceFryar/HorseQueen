@@ -313,11 +313,11 @@ public class HorseQueenStatus implements Cloneable {
     }*/
     public String getWiner(){
         if (whiteQueen==null || whiteQueen.getStack()==1
-                || getPosibleMovementsFor(whiteQueen.getPosition()).isEmpty()){
+                /*|| getPosibleMovementsFor(whiteQueen.getPosition()).isEmpty()*/){
             return "Las negras ";
         }
         else if (blackQueen==null || blackQueen.getStack()==1
-                || getPosibleMovementsFor(blackQueen.getPosition()).isEmpty()){
+                /*|| getPosibleMovementsFor(blackQueen.getPosition()).isEmpty()*/){
             return "Las blancas ";
         }
         return "Nadie ";
