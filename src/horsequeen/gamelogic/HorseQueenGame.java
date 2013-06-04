@@ -1,5 +1,6 @@
 package horsequeen.gamelogic;
 
+import horsequeen.ia.AdversarialSearch;
 import horsequeen.ia.Game;
 import horsequeen.ia.Heuristic;
 import java.util.List;
@@ -13,6 +14,26 @@ public class HorseQueenGame implements Game<HorseQueenStatus, Movement, Integer>
     private HorseQueenStatus actualStatus;
     private Heuristic whitePlayerHeuristic;
     private Heuristic blackPlayerHeuristic;
+    private AdversarialSearch whitePlayerSearch;
+    private AdversarialSearch blackPlayerSearch;
+
+    public void setWhitePlayerSearch(AdversarialSearch whitePlayerSearch) {
+        this.whitePlayerSearch = whitePlayerSearch;
+    }
+
+    public void setBlackPlayerSearch(AdversarialSearch blackPlayerSearch) {
+        this.blackPlayerSearch = blackPlayerSearch;
+    }
+
+    public AdversarialSearch getWhitePlayerSearch() {
+        return whitePlayerSearch;
+    }
+
+    public AdversarialSearch getBlackPlayerSearch() {
+        return blackPlayerSearch;
+    }
+    
+    
 
     public HorseQueenGame() {
         actualStatus =  new HorseQueenStatus();

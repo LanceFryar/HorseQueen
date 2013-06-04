@@ -31,19 +31,20 @@ public class GameView extends JFrame {
     private OptionPanel optionPanel;
     private LogPanel logPanel;
     HorseQueenGame horseQueenGame;
-    AdversarialSearch search;
 
     public GameView() {
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Horse Queen");
-        this.setSize(new Dimension(400, 400));
+        this.setSize(new Dimension(400, 425));
         this.setVisible(true);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         horseQueenGame = new HorseQueenGame();
+        horseQueenGame.setWhitePlayerSearch(new AlphaBetaSearch(horseQueenGame, 4));
+        horseQueenGame.setBlackPlayerSearch(new AlphaBetaSearch(horseQueenGame, 4));
         horseQueenGame.setWhitePlayerHeuristic(new QueenStackHeuristic());
         horseQueenGame.setBlackPlayerHeuristic(new QueenStackHeuristic());
-        search = new AlphaBetaSearch(horseQueenGame, 4);
+
         createOptionPanel();
         createLogPanel();
         cretateTabletop();
@@ -61,7 +62,10 @@ public class GameView extends JFrame {
         horseQueenGame = new HorseQueenGame();
         horseQueenGame.setWhitePlayerHeuristic(optionPanel.getWhiteHeuristic());
         horseQueenGame.setBlackPlayerHeuristic(optionPanel.getBlackHeuristic());
-        search = new AlphaBetaSearch(horseQueenGame, 4);
+        horseQueenGame.setWhitePlayerSearch(new AlphaBetaSearch(horseQueenGame, 
+                optionPanel.getWhiteDepth()));
+        horseQueenGame.setBlackPlayerSearch(new AlphaBetaSearch(horseQueenGame, 
+                optionPanel.getBlackDepth()));
 
         cretateTabletop();
         logPanel.cleanLog();
@@ -80,18 +84,28 @@ public class GameView extends JFrame {
         return resetButton;
     }
 
+    private JButton createPlayButton() {
+        JButton playButton = new JButton("Play");
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                while (!horseQueenGame.getActualStatus().isTerminal()) {
+                    decideNextMovement();
+                    tabletop.update();
+                }
+            }
+        });
+        return playButton;
+
+    }
+
     private JButton createMakeDecisionButton() {
         JButton makeDecisionButton = new JButton("Make decision");
         makeDecisionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!horseQueenGame.getActualStatus().isTerminal()) {
-                    logPanel.writeLog("Decidiendo...\n");
-                    Movement move =
-                            (Movement) search.makeDecision(horseQueenGame.getActualStatus());
-                    horseQueenGame.move(move);
-                    logPanel.writeLog(move.toString() + "\n" + search.getMetrics()
-                            + "\n");
+                    decideNextMovement();
                     tabletop.update();
                 }
             }
@@ -99,6 +113,65 @@ public class GameView extends JFrame {
         return makeDecisionButton;
     }
 
+    private void decideNextMovement() {
+        logPanel.writeLog("Decidiendo...\n");
+        Movement move;
+        if (horseQueenGame.getPlayer(horseQueenGame.getActualStatus()) == HorseQueenStatus.WHITE) {
+            move = (Movement) horseQueenGame.getWhitePlayerSearch().makeDecision(
+                    horseQueenGame.getActualStatus());
+            horseQueenGame.move(move);
+            logPanel.writeLog(
+                    move.toString()
+                    + "\n"
+                    + horseQueenGame.getWhitePlayerSearch().getMetrics()
+                    + "\n");
+        } else {
+            move = (Movement) horseQueenGame.getBlackPlayerSearch().makeDecision(
+                    horseQueenGame.getActualStatus());
+            horseQueenGame.move(move);
+            logPanel.writeLog(
+                    move.toString()
+                    + "\n"
+                    + horseQueenGame.getBlackPlayerSearch().getMetrics()
+                    + "\n");
+        }
+
+    }
+
+    private JComboBox<Integer> createWhiteDepth(){
+        JComboBox<Integer> whiteDepthComboBox = new JComboBox<>();
+        whiteDepthComboBox.addItem(2);
+        whiteDepthComboBox.addItem(4);
+        whiteDepthComboBox.addItem(6);
+        whiteDepthComboBox.addItem(8);
+        whiteDepthComboBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                horseQueenGame.setWhitePlayerSearch(
+                        new AlphaBetaSearch(horseQueenGame,(int) e.getItem()));
+            }
+        });
+        return whiteDepthComboBox;
+    }
+    
+    private JComboBox<Integer> createBlackDepth(){
+        JComboBox<Integer> blackDepthComboBox = new JComboBox<>();
+        blackDepthComboBox.addItem(2);
+        blackDepthComboBox.addItem(4);
+        blackDepthComboBox.addItem(6);
+        blackDepthComboBox.addItem(8);
+        blackDepthComboBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                horseQueenGame.setBlackPlayerSearch(
+                        new AlphaBetaSearch(horseQueenGame,(int) e.getItem()));
+            }
+        });
+        return blackDepthComboBox;
+    }
+    
     private JComboBox<Heuristic> createWhiteHeuristicComboBox() {
         JComboBox<Heuristic> whiteHeuristicComboBox = new JComboBox<>();
         whiteHeuristicComboBox.addItem(new QueenStackHeuristic());
@@ -129,12 +202,14 @@ public class GameView extends JFrame {
     }
 
     private void createOptionPanel() {
-        optionPanel = new OptionPanel(500, 100);
+        optionPanel = new OptionPanel(500, 125);
         optionPanel.setResetButton(createResetButton());
         optionPanel.setMakeDecisionButton(createMakeDecisionButton());
+        optionPanel.setPlayButton(createPlayButton());
         optionPanel.setWhiteHeuristicComboBox(createWhiteHeuristicComboBox());
-        optionPanel.setBlackHeuristicComboBox(createBlackHeuristicComboBox());
-        optionPanel.setDesicionLabel();
+        optionPanel.setWhiteDepth(createWhiteDepth());
+        optionPanel.setBlackHeuristicComboBox(createBlackHeuristicComboBox()); 
+        optionPanel.setBlackDepth(createBlackDepth());
         optionPanel.setVisible(true);
         optionPanel.setBackground(Color.lightGray);
         this.add(optionPanel);
@@ -148,7 +223,7 @@ public class GameView extends JFrame {
     }
 
     private void createLogPanel() {
-        logPanel = new LogPanel(500, 60);
+        logPanel = new LogPanel(525, 60);
         logPanel.setLogText();
         this.add(logPanel);
     }

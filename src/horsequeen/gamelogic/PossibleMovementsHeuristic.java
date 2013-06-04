@@ -11,7 +11,7 @@ public class PossibleMovementsHeuristic implements Heuristic{
 
     @Override
     public double h(HorseQueenStatus status, int player) {
-         if (player==WHITE){
+         if (player==status.WHITE){
             if (status.getBlackQueen()==null 
                     || status.getPosibleMovementsFor(status.getBlackQueen().getPosition())==null
                     || status.getBlackQueen().getStack()==1){

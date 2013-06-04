@@ -16,24 +16,27 @@ public class PositioningHeuristic implements Heuristic {
 
     @Override
     public double h(HorseQueenStatus status, int player) {
-        if (player == WHITE) {
-            if (status.getBlackQueen() == null
-                    || status.getPosibleMovementsFor(status.getBlackQueen().getPosition()) == null
-                    || status.getBlackQueen().getStack() == 1) {
+        if (player==status.WHITE){
+            if (status.getBlackQueen()==null 
+                    || status.getPosibleMovementsFor(status.getBlackQueen().getPosition())==null
+                    || status.getBlackQueen().getStack()==1){
                 return Double.POSITIVE_INFINITY;
-            } else if (status.getWhiteQueen() == null
-                    || status.getPosibleMovementsFor(status.getWhiteQueen().getPosition()) == null
-                    || status.getWhiteQueen().getStack() == 1) {
+            }
+            else if (status.getWhiteQueen()==null 
+                    || status.getPosibleMovementsFor(status.getWhiteQueen().getPosition())==null
+                    || status.getWhiteQueen().getStack()==1){
                 return Double.NEGATIVE_INFINITY;
             }
-        } else {
-            if (status.getBlackQueen() == null
-                    || status.getPosibleMovementsFor(status.getBlackQueen().getPosition()) == null
-                    || status.getBlackQueen().getStack() == 1) {
+        }
+        else{
+            if (status.getBlackQueen()==null 
+                    || status.getPosibleMovementsFor(status.getBlackQueen().getPosition())==null
+                    || status.getBlackQueen().getStack()==1){
                 return Double.NEGATIVE_INFINITY;
-            } else if (status.getWhiteQueen() == null
-                    || status.getPosibleMovementsFor(status.getWhiteQueen().getPosition()) == null
-                    || status.getWhiteQueen().getStack() == 1) {
+            }
+            else if (status.getWhiteQueen()==null 
+                    || status.getPosibleMovementsFor(status.getWhiteQueen().getPosition())==null
+                    || status.getWhiteQueen().getStack()==1){
                 return Double.POSITIVE_INFINITY;
             }
         }
@@ -43,16 +46,17 @@ public class PositioningHeuristic implements Heuristic {
             for (int j = 0; j < COLS; j++) {
                 if (status.getBoard().getPieceAt(new Position(i, j)) != null
                         && status.getBoard().getPieceAt(new Position(i, j)).getColor() == player) {
-                    result += 5-(i % 6);
+                    result += ((COLS/2)-1)-(i % (COLS/2));
                 }
             }
         }
-        if (player==HorseQueenStatus.WHITE)
+        if (player==status.getActualPlayer())
             return result;
         else 
             return -result;
     }
 
+    @Override
     public String toString() {
         return "PositioningHeuristic";
     }

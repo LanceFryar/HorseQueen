@@ -9,7 +9,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
    
     Game<STATE, ACTION, PLAYER> game;
     private int expandedNodes;
-    private double time;
+    private double time, avgTime;
     private int movements;
     private int p;
 
@@ -17,6 +17,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         this.game = game;
         movements=0;
         this.p=p;
+        this.avgTime=0;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         }
         movements++;
         time = System.currentTimeMillis()-time;
+        avgTime+=time;
         return result;
     }
 
@@ -80,6 +82,7 @@ public class AlphaBetaSearch<STATE, ACTION, PLAYER> implements
         Metrics result = new Metrics();
         result.set("expandedNodes", expandedNodes);
         result.set("time",time/1000);
+        result.set("averageTime", avgTime/(movements/2)/1000);
         result.set("movements", movements);
         return result;
     }
