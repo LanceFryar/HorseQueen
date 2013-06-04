@@ -8,7 +8,6 @@ import horsequeen.gamelogic.PossibleMovementsHeuristic;
 import horsequeen.gamelogic.QueenStackHeuristic;
 import horsequeen.ia.AdversarialSearch;
 import horsequeen.ia.AlphaBetaSearch;
-import horsequeen.ia.Game;
 import horsequeen.ia.Heuristic;
 import java.awt.Color;
 import java.awt.Dimension;

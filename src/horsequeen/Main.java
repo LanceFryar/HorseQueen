@@ -13,6 +13,7 @@ import horsequeen.iu.GameView;
 public class Main {
     
     public static void main(String[] args) {
+        System.out.println("");
         GameView gameView = new GameView();
     }
     

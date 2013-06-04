@@ -1,7 +1,6 @@
 package horsequeen.gamelogic;
 
 import horsequeen.ia.Heuristic;
-import static horsequeen.gamelogic.HorseQueenStatus.WHITE;
 
 /**
  * Heuristica que valora la cantidad de fichas apilasdas en la reina
@@ -11,7 +10,7 @@ public class QueenStackHeuristic implements Heuristic{
 
     @Override
     public double h(HorseQueenStatus status, int player) {
-         if (player==WHITE){
+        if (player==status.WHITE){
             if (status.getBlackQueen()==null 
                     || status.getPosibleMovementsFor(status.getBlackQueen().getPosition())==null
                     || status.getBlackQueen().getStack()==1){

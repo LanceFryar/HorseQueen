@@ -61,10 +61,12 @@ public class HorseQueenStatus implements Cloneable {
     public void move(Movement movement) {
 
         if (!isCorrectMovement(movement)) {
-        } else if (board.getPieceAt(movement.getSource()) instanceof Baby) {
+        } 
+        else if (board.getPieceAt(movement.getSource()) instanceof Baby) {
             babyMovement(movement);
             actualPlayer = 1 - actualPlayer;
-        } else if (board.getPieceAt(movement.getSource()) instanceof Queen) {
+        } 
+        else if (board.getPieceAt(movement.getSource()) instanceof Queen) {
             queenMovement(movement);
             actualPlayer = 1 - actualPlayer;
         }       
@@ -170,9 +172,9 @@ public class HorseQueenStatus implements Cloneable {
      * @param movement movimiento deseado
      */
     private void babyConquestMove(Movement movement) {
-        if (board.getPieceAt(movement.getDestination()) == whiteQueen) {
+        if (movement.getDestination().equals(whiteQueen.getPosition())) {
             whiteQueen = null;
-        } else if (board.getPieceAt(movement.getDestination()) == blackQueen) {
+        } else if (movement.getDestination().equals(blackQueen.getPosition())) {
             blackQueen = null;
         }
 
@@ -200,9 +202,9 @@ public class HorseQueenStatus implements Cloneable {
             board.setPieceAt(movement.getSource(), new Baby(actualPlayer));
         } // Movimiento de conquista -> come y no deja baby
         else {
-            if (board.getPieceAt(movement.getDestination()) == whiteQueen) {
+            if (movement.getDestination().equals(whiteQueen.getPosition())) {
                 whiteQueen = null;
-            } else if (board.getPieceAt(movement.getDestination()) == blackQueen) {
+            } else if (movement.getDestination().equals(blackQueen.getPosition())) {
                 blackQueen = null;
             }
             board.setPieceAt(movement.getDestination(),
@@ -266,7 +268,8 @@ public class HorseQueenStatus implements Cloneable {
 
         boolean nearer = true;
 
-        if (board.getPieceAt(movement.getSource()) instanceof Baby) {
+        if (board.getPieceAt(movement.getSource()) instanceof Baby
+                && whiteQueen!=null && blackQueen!=null) {
             nearer = isNearer(movement);
         }
 

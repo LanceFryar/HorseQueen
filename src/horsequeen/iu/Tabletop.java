@@ -106,6 +106,11 @@ public class Tabletop extends JPanel implements clickListener {
         if (game.getActualStatus().isTerminal()){
             logPanel.writeLog(game.getActualStatus().getWiner()
                             + "ganan");
+            for (int i=0; i<rows; i++){
+                for (int j=0; j<columns; j++){
+                    paneles[i][j].getBoton().setEnabled(false);
+                }
+            }
         }
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {

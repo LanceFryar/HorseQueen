@@ -69,12 +69,16 @@ public class Position implements Cloneable{
     
     @Override
     public Position clone(){
-        return new Position(col, row);
+        return new Position(row, col);
     }  
     
     @Override
     public String toString(){
-        return "(" + col + ", " + row +")";
+        return "(" + row + ", " + col +")";
+    }
+    
+    public boolean equals(Position position){
+        return this.col==position.getCol() && this.row==position.getRow();
     }
     
 }
